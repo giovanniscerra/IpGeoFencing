@@ -17,7 +17,7 @@ Sample GeoJSON files are included in this project for testing purposes, and also
 This engine is particularly useful in cases when the ip address is available, but not the coordinate.
 These are typical scenarios in which web application can use the engine with the ip address of the http requests:
 
-- Blocking requests from ip addresses from blacklistes geographic areas
+- Blocking requests from blacklistes geographic areas
 - Enabling/disabling features for specific regions
 - Localizing content
 
