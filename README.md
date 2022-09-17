@@ -4,8 +4,8 @@ A simple and easily extensible IP geo-fencing engine
 ## Configuring the geo-fencing engine
 ```csharp
 var engine = new IPGeoFencingEngineBuilder()
-	.AddIP2LocationFromCSVFile(ip2LocationCSVFile)
-	.AddGeographicAreasFromGeoJSONFile(geoJSONDemoFilePath)
+	.AddIP2LocationFromCSVFile(@"\\geo-fencing\data\IP2LOCATION-LITE-DB11.CSV")
+	.AddGeographicAreasFromGeoJSONFile(@"\\geo-fencing\data\demo.geojson")
 	.AddRule("New York", 
 		predicate: (areas, ip, location) => { return areas.Any(A => A.Name == "New York"); },	
 		action: (areas, ip, location) => { Console.WriteLine($"The IP Address: {ip} is in New York State!"); })
