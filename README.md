@@ -11,7 +11,15 @@ The engine would first translate the IP address into a geographic location, usin
 
 The engine then determines which of the configured geographic areas contain the location, and for each match fires the correspondent configured action.
 Geographic areas can be configured in the engine by importing a file in [GeoJSON format](https://geojson.org/ "https://geojson.org/").
-Sample GeoJSON files are included in this project for testing purposes, and also freely available for the public on the [opendatasoft website](https://public.opendatasoft.com/explore/ "https://public.opendatasoft.com/explore/").
+Sample GeoJSON files are included in this project for testing purposes, and also freely available for the public on the [OpenDataSoft website](https://public.opendatasoft.com/explore/ "https://public.opendatasoft.com/explore/").
+
+## Use case scenarios
+This engine is particularly useful in cases when the ip address is available, rather then the coordinates.
+These are typical scenarios where for instance a web application can use the engine with ip address of the requests:
+
+- Blocking requests from ip addresses from blacklistes geographic areas
+- Enabling/disabling features for specific regions
+- Localizing content
 
 ## Configuring the geo-fencing engine
 ```csharp
