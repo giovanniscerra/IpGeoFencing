@@ -47,17 +47,17 @@ var engine = new IPGeoFencingEngineBuilder()
 ```
 ## Running the engine
 ```csharp
-//Billings, MT IP Address
-engine.Run("98.127.147.57");
-//This will print on console:
+
+engine.Run("98.127.147.57"); //Billings, MT IP Address
 //The IP Address: 98.127.147.57 is in Montana!
 //The IP Address: 98.127.147.57 is in Billings, MT
 //The IP Address: 98.127.147.57 is in New York State or Montana!
 
-//New York, NY IP Address
-engine.Run("172.254.112.210");
-//This will print on console:
+engine.Run("172.254.112.210"); //New York, NY IP Address
 //The IP Address: 172.254.112.210 is in New York State!
 //The IP Address: 172.254.112.210 is in New York State or Montana!
 
+
+engine.Run("157.240.3.35"); //Seattle, WA IP Address
+//The IP Address: 157.240.3.35 is outside all the areas provided
 ```
