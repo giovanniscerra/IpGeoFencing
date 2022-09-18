@@ -57,7 +57,6 @@ engine.Run("172.254.112.210"); //New York, NY IP Address
 //The IP Address: 172.254.112.210 is in New York State!
 //The IP Address: 172.254.112.210 is in New York State or Montana!
 
-
 engine.Run("157.240.3.35"); //Seattle, WA IP Address
 //The IP Address: 157.240.3.35 is outside all the areas provided
 ```
