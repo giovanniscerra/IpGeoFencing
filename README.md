@@ -36,6 +36,11 @@ predicate: (areas, ip, location) => { return areas.Any(A => A.Name == "New York"
 action: (areas, ip, location) => { Console.WriteLine($"The IP Address: {ip} is in New York State!"); })
 ```
 
+In addition to regular rules, ***default rules*** can also be specified.
+Default rules are executed if and only if the IP address location is *not* contained in any of the geographic areas available.
+Unlike regular rules, default rules only need the action to be constructed
+
+
 ## Configuring the geofencing engine
 ```csharp
 var engine = new IPGeoFencingEngineBuilder()
@@ -56,7 +61,7 @@ var engine = new IPGeoFencingEngineBuilder()
 	.AddRule("New York or Montana",
 		predicate: (areas, ip, location) => { return areas.Any(A => A.Name == "Montana") || areas.Any(A => A.Name == "New York"); },
 		action: (areas, ip, location) => { Console.WriteLine($"The IP Address: {ip} is in New York State or Montana!"); })
-	.AddDefaultAction((ip) => Console.WriteLine($"The IP Address: {ip} is outside all the areas provided"))
+	.AddDefaultAction((ip, loc) => Console.WriteLine($"The IP Address: {ip} is outside all the areas provided"))
 	.Build();
 ```
 ## Running the engine
