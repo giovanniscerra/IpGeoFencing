@@ -60,3 +60,40 @@ engine.Run("172.254.112.210"); //New York, NY IP Address
 engine.Run("157.240.3.35"); //Seattle, WA IP Address
 //The IP Address: 157.240.3.35 is outside all the areas provided
 ```
+
+## Extending the engine
+The core services used by the engine that can be easily extended to enrich its functionality:
+
+###IIP2LocationProvider
+This interface provides the engine with the translation service to obtain the grographic location from the ip address.
+The project provides out-of-the-box a simple implementation where the Ip2Location CSV data is loaded entirely in memory and the ip translation occurrs via Linq queries. More efficient implementations can be added that utilize databases queries/indexes to look up the locations, or leverage the IP2Location API for a lightweight solution, etc.
+```csharp
+public interface IIP2LocationProvider
+{
+	LocationModel? GetLocationFromIP(IPAddress ipAddress);
+	LocationModel? GetLocationFromIP(long ipAddress);
+}
+```
+
+###GeographicAreasProviderFactory
+This interface is used by the engine to determine which geographic areas contain a given coordinate point.
+The default implementation in the project is loading in memory the full collection of geographic areas (in the form of polygons, circles, etc.) that need to be evaluated. Like the IIP2LocationProvider, more efficient implementations can be added to leverage databases, particularly those supporting geospacial queries.
+```csharp
+public interface IGeographicAreasProvider
+{
+	IEnumerable<GeographicAreaModel> GetAreasContaining(GeoCoordinate point);
+}
+```
+
+###AreasBuilder
+This builder class currently can import the geographic areas from a GeoJSON file format.
+There are other popular formats to represent geographic areas, such Shapefile (GIS), KML (Google Earth), etc.
+```csharp
+public static AreasBuilder
+{
+	...	
+	public RulesBuilder AddGeographicAreasFromGeoJSONFile(string geoJSONFilePath)
+	...
+}
+```
+
