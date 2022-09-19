@@ -23,7 +23,7 @@ These are the typical scenarios in which web applications can use the engine wit
 - Finding the availability of products or service nearby the ip location
 
 ## Anatomy of a geofenging rule
-A rule is constructed from 3 elements: 
+A rule is constructed from 3 elements: name, predicate and action.
 
 - rule name: short description for the rule
 
