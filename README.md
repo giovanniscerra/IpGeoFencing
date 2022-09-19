@@ -80,6 +80,16 @@ engine.Run("157.240.3.35"); //Seattle, WA IP Address
 //The IP Address: 157.240.3.35 is outside all the areas provided
 ```
 
+## Running the demo
+The solution comes with a simple demo console app that demonstrates the engine configuration and execution.
+Before you run the demo, make sure to edit the *appsettings.json* file and set the correct full path to the data folder.
+Example:
+```json
+{
+  "DataFolder": "D:\\IPGeoFencing\\Data"
+}
+```
+
 ## Extending the engine
 The core services used by the engine that can be easily extended to enrich its functionality:
 
