@@ -27,7 +27,7 @@ A rule is constructed from 3 elements: name, predicate and action.
 
 - rule name: short description for the rule
 
-- predicate: a boolean function that determines if the rule should be applied, The function will receive as input the list of geographic areas that contain the IP address location (normally only one area if the areas do not overlap), plus the IP address and its location info.
+- predicate: a boolean function that determines if the rule should be applied. The function will receive as input the list of geographic areas that contain the IP address location (normally only one area if the areas do not overlap), plus the IP address and its location info.
 ```csharp
 predicate: (areas, ip, location) => { return areas.Any(A => A.Name == "New York"); }
 ```
