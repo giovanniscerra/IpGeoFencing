@@ -3,7 +3,7 @@ A simple and easily extensible IP geofencing engine
 
 ## Overview
 Geofencing is the use of virtual geographic perimeters to determine the behavior of an application.
-Provided a specific coordinate (latitude and longitude), a geofencing engine can determine to which virtal geographic area or areas the location belongs, and consequentially take action.
+Provided a specific coordinate (latitude and longitude), a geofencing engine can determine to which virtual geographic area or areas the location belongs, and consequentially take action.
 
 The IP geofencing engine in this project run based on specific IP addresses.
 The engine would first translate the IP address into a geographic location, using the free CSV database provided by IP2Location
