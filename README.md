@@ -64,7 +64,7 @@ engine.Run("157.240.3.35"); //Seattle, WA IP Address
 ## Extending the engine
 The core services used by the engine that can be easily extended to enrich its functionality:
 
-###IIP2LocationProvider
+### IIP2LocationProvider
 This interface provides the engine with the translation service to obtain the grographic location from the ip address.
 The project provides out-of-the-box a simple implementation where the Ip2Location CSV data is loaded entirely in memory and the ip translation occurrs via Linq queries. More efficient implementations can be added that utilize databases queries/indexes to look up the locations, or leverage the IP2Location API for a lightweight solution, etc.
 ```csharp
@@ -75,7 +75,7 @@ public interface IIP2LocationProvider
 }
 ```
 
-###GeographicAreasProviderFactory
+### GeographicAreasProviderFactory
 This interface is used by the engine to determine which geographic areas contain a given coordinate point.
 The default implementation in the project is loading in memory the full collection of geographic areas (in the form of polygons, circles, etc.) that need to be evaluated. Like the IIP2LocationProvider, more efficient implementations can be added to leverage databases, particularly those supporting geospacial queries.
 ```csharp
@@ -85,8 +85,8 @@ public interface IGeographicAreasProvider
 }
 ```
 
-###AreasBuilder
-This builder class currently can import the geographic areas from a GeoJSON file format.
+### AreasBuilder
+This builder class currently can only import the geographic areas from a GeoJSON file format.
 There are other popular formats to represent geographic areas, such Shapefile (GIS), KML (Google Earth), etc.
 ```csharp
 public static AreasBuilder
@@ -95,5 +95,17 @@ public static AreasBuilder
 	public RulesBuilder AddGeographicAreasFromGeoJSONFile(string geoJSONFilePath)
 	...
 }
+```
+
+### Using your extensions in the engine builder
+The engine builder already allows developers to plug in their own service implementations:
+```csharp
+        IIP2LocationProvider myIP2LocationProvider = new myIP2LocationProvider();
+        IGeographicAreasProvider myGeographicAreasProvider = new myGeographicAreasProvider();
+
+        var engine = new IPGeoFencingEngineBuilder()
+            .AddIP2LocationProvider(myIP2LocationProvider)
+            .AddGeographicAreasProvider(myGeographicAreasProvider)
+	    .AddRule( ...
 ```
 
