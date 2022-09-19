@@ -78,22 +78,11 @@ public interface IIP2LocationProvider
 ### GeographicAreasProviderFactory
 This interface is used by the engine to determine which geographic areas contain a given coordinate point.
 The default implementation in the project is loading in memory the full collection of geographic areas (in the form of polygons, circles, etc.) that need to be evaluated. Like the IIP2LocationProvider, more efficient implementations can be added to leverage databases, particularly those supporting geospacial queries.
+The project allowscurrently to import geographic areas only from a GeoJSON file format, however there are other popular formats to represent geographic areas that can be integrated, such Shapefile (GIS), KML (Google Earth), etc. 
 ```csharp
 public interface IGeographicAreasProvider
 {
 	IEnumerable<GeographicAreaModel> GetAreasContaining(GeoCoordinate point);
-}
-```
-
-### AreasBuilder
-This builder class currently can only import the geographic areas from a GeoJSON file format.
-There are other popular formats to represent geographic areas, such Shapefile (GIS), KML (Google Earth), etc.
-```csharp
-public static AreasBuilder
-{
-	...	
-	public RulesBuilder AddGeographicAreasFromGeoJSONFile(string geoJSONFilePath)
-	...
 }
 ```
 
