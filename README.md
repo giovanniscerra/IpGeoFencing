@@ -82,7 +82,7 @@ engine.Run("157.240.3.35"); //Seattle, WA IP Address
 
 ## Running the demo
 The solution comes with a simple demo console app that demonstrates the engine configuration and execution.
-Before you run the demo, make sure to edit the *appsettings.json* file and set the correct full path to the data folder.
+Before you run the demo, make sure to edit the *appsettings.json* file included in th eproject and set the correct full path to the data folder in your file system.
 Example:
 ```json
 {
