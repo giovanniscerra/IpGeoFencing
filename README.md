@@ -97,11 +97,11 @@ public static AreasBuilder
 }
 ```
 
-### Using your extensions in the engine builder
+### Plugging in your own service implementations in the engine builder
 The engine builder already allows developers to plug in their own service implementations:
 ```csharp
-        IIP2LocationProvider myIP2LocationProvider = new myIP2LocationProvider();
-        IGeographicAreasProvider myGeographicAreasProvider = new myGeographicAreasProvider();
+        IIP2LocationProvider myIP2LocationProvider = new myOwnIP2LocationProviderImplementation();
+        IGeographicAreasProvider myGeographicAreasProvider = new myOwnGeographicAreasProviderImplementation();
 
         var engine = new IPGeoFencingEngineBuilder()
             .AddIP2LocationProvider(myIP2LocationProvider)
