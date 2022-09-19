@@ -5,15 +5,15 @@ namespace IPGeoFencing.Engine.Builders
 {
     public class IPGeoFencingEngineBuilder
     {
-        public AreaBuilder AddIP2LocationProvider(IIP2LocationProvider ip2LocationProvider)
+        public AreasBuilder AddIP2LocationProvider(IIP2LocationProvider ip2LocationProvider)
         {
-            return AreaBuilder.Create(ip2LocationProvider);
+            return AreasBuilder.Create(ip2LocationProvider);
         }
 
-        public AreaBuilder AddIP2LocationFromCSVFile(string ip2LocationCSVFilePath)
+        public AreasBuilder AddIP2LocationFromCSVFile(string ip2LocationCSVFilePath)
         {
             IIP2LocationProvider ip2LocationProvider = IP2LocationProviderFactory.FromCSVFile(ip2LocationCSVFilePath);
-            return AreaBuilder.Create(ip2LocationProvider);
+            return AreasBuilder.Create(ip2LocationProvider);
         }
     }
 }

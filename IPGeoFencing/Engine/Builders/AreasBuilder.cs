@@ -4,14 +4,14 @@ using IPGeoFencing.IP2Location.Abstractions;
 
 namespace IPGeoFencing.Engine.Builders
 {
-    public class AreaBuilder
+    public class AreasBuilder
     {
         private readonly IIP2LocationProvider _ip2LocationProvider;
 
-        private AreaBuilder(IIP2LocationProvider ip2LocationProvider)
+        private AreasBuilder(IIP2LocationProvider ip2LocationProvider)
         {
             if (ip2LocationProvider is null)
-                throw new ArgumentNullException($"{nameof(AreaBuilder)}->Ctor: {nameof(ip2LocationProvider)} parameter cannit be null");
+                throw new ArgumentNullException($"{nameof(AreasBuilder)}->Ctor: {nameof(ip2LocationProvider)} parameter cannit be null");
 
             _ip2LocationProvider = ip2LocationProvider;
         }
@@ -28,9 +28,9 @@ namespace IPGeoFencing.Engine.Builders
             return RulesBuilder.Create(_ip2LocationProvider, geographicAreasProvider);
         }
 
-        internal static AreaBuilder Create(IIP2LocationProvider ip2LocationProvider)
+        internal static AreasBuilder Create(IIP2LocationProvider ip2LocationProvider)
         {
-            return new AreaBuilder(ip2LocationProvider);
+            return new AreasBuilder(ip2LocationProvider);
         }
     }
 }

@@ -11,13 +11,13 @@ namespace IPGeoFencing.Engine
         private readonly IIP2LocationProvider _ip2LocationProvider;
         private readonly IGeographicAreasProvider _geographicAreaProvider;
         private readonly IEnumerable<GeoFencingRule> _geofencingRules;
-        private readonly IEnumerable<Action<IPAddress>> _defaultActions;
+        private readonly IEnumerable<Action<IPAddress, LocationModel>> _defaultActions;
 
         public IPGeoFencingEngine(
                 IIP2LocationProvider ip2LocationProvider,
                 IGeographicAreasProvider geographicAreaProvider,
                 IEnumerable<GeoFencingRule> geofencingRules,
-                IEnumerable<Action<IPAddress>> defaultActions
+                IEnumerable<Action<IPAddress, LocationModel>> defaultActions
             )
         {
             if (ip2LocationProvider is null)
@@ -89,7 +89,7 @@ namespace IPGeoFencing.Engine
                 //No rule for given IP, running default actions
                 foreach (var defaultAction in _defaultActions)
                 {
-                    defaultAction(ipAddress);
+                    defaultAction(ipAddress, ipLocation);
                 }
             }
         }

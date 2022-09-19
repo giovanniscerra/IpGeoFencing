@@ -1,6 +1,7 @@
 ﻿using IPGeoFencing.Engine.Builders;
 using Microsoft.Extensions.Configuration;
 using System.Net;
+using Ionic.Zip;
 
 class Program
 {
@@ -10,11 +11,18 @@ class Program
 
         try
         {
+            Console.WriteLine("Preparing data files...");
+
             var config = GetAppConfiguration();
             var dataFolder = GetDataFolderSetting(config);
 
             string ip2LocationCSVFile = Path.Combine(dataFolder, "IP2LOCATION-LITE-DB11.CSV");
-            string geoJSONDemoFilePath = Path.Combine(dataFolder, "demo.geojson");
+            string geoJSONDemoFilePath = Path.Combine(dataFolder, "demo.geojson");            
+
+            if (!File.Exists(ip2LocationCSVFile))
+                UnZipIfExists(dataFolder, "IP2LOCATION-LITE-DB11.zip");
+
+            Console.WriteLine("Building geo-fencing engine...");
 
             var engine = new IPGeoFencingEngineBuilder()
                 .AddIP2LocationFromCSVFile(ip2LocationCSVFile)
@@ -34,19 +42,21 @@ class Program
                 .AddRule("New York or Montana",
                         predicate: (areas, ip, location) => { return areas.Any(A => A.Name == "Montana") || areas.Any(A => A.Name == "New York"); },
                         action: (areas, ip, location) => { Console.WriteLine($"The IP Address: {ip} is in New York State or Montana!"); })
-                .AddDefaultAction((ip) => Console.WriteLine($"The IP Address: {ip} is outside all the areas provided"))
+                .AddDefaultAction((ip, location) => Console.WriteLine($"The IP Address: {ip} is outside all the areas provided"))
                 .Build();
 
 
-            IPAddress ipAddress;
+            Console.WriteLine("Running engine...");
 
             //Billings, MT IP Address
-            ipAddress = IPAddress.Parse("98.127.147.57");
-            engine.Run(ipAddress);
+            engine.Run("98.127.147.57");
 
             //New York, NY IP Address
-            ipAddress = IPAddress.Parse("172.254.112.210");
-            engine.Run(ipAddress);
+            engine.Run("172.254.112.210");
+
+            //Seattle, WA IP Address
+            engine.Run("157.240.3.35");
+            
         }
         catch (Exception ex)
         {
@@ -82,5 +92,19 @@ class Program
             throw new DirectoryNotFoundException($"The data folder {dataFolder} configured in the application settings does not exists");
 
         return dataFolder;
+    }
+
+    private static void UnZipIfExists(string zipFolder, string zipFileName)
+    {
+        string zipFilePath = Path.Combine(zipFolder, zipFileName);
+
+        // Decompress zippedIP2LocationsFolder
+        if (File.Exists(zipFilePath))
+        {
+            using (ZipFile zip = ZipFile.Read(zipFilePath))
+            {
+                zip.ExtractAll(zipFolder);
+            }
+        }
     }
 }

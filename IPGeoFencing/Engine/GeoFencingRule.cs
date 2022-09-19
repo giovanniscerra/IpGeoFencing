@@ -1,5 +1,4 @@
-﻿using GeoCoordinatePortable;
-using IPGeoFencing.GeographicAreas.Abstractions;
+﻿using IPGeoFencing.GeographicAreas.Abstractions;
 using IPGeoFencing.IP2Location.DataModels;
 using System.Net;
 

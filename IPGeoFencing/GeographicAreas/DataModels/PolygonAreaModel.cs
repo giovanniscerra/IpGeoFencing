@@ -45,50 +45,76 @@ namespace IPGeoFencing.GeographicAreas.DataModels
             if (!boundingBox.Contains(location))
                 return false;
 
-            /// Winding Number algorithm ported from C++ to C# by Manuel Castro:
-            /// https://stackoverflow.com/questions/924171/geo-fencing-point-inside-outside-polygon
-            int n = coordinates.Count();
+            GeoCoordinate[] polygonPointsWithClosure = PolygonPointsWithClosure(coordinates.ToArray());
 
-            List<GeoCoordinate> poly = new List<GeoCoordinate>(_outerPerimeter);
-            poly.Add(new GeoCoordinate(poly[0].Latitude, poly[0].Longitude));
+            int windingNumber = 0;
 
-            GeoCoordinate[] v = poly.ToArray();
-
-            int wn = 0;    // the winding number counter
-
-            // loop through all edges of the polygon
-            for (int i = 0; i < n; i++)
-            {   // edge from V[i] to V[i+1]
-                if (v[i].Latitude <= location.Latitude)
-                {         // start y <= P.y
-                    if (v[i + 1].Latitude > location.Latitude)      // an upward crossing
-                        if (isLeft(v[i], v[i + 1], location) > 0)  // P left of edge
-                            ++wn;            // have a valid up intersect
-                }
-                else
-                {                       // start y > P.y (no test needed)
-                    if (v[i + 1].Latitude <= location.Latitude)     // a downward crossing
-                        if (isLeft(v[i], v[i + 1], location) < 0)  // P right of edge
-                            --wn;            // have a valid down intersect
-                }
+            for (int pointIndex = 0; pointIndex < polygonPointsWithClosure.Length - 1; pointIndex++)
+            {
+                Edge edge = new Edge(polygonPointsWithClosure[pointIndex], polygonPointsWithClosure[pointIndex + 1]);
+                windingNumber += AscendingIntersection(location, edge);
+                windingNumber -= DescendingIntersection(location, edge);
             }
-            if (wn != 0)
-                return true;
-            else
-                return false;
+
+            return windingNumber != 0;
         }
 
-
-        private static int isLeft(GeoCoordinate P0, GeoCoordinate P1, GeoCoordinate P2)
+        private GeoCoordinate[] PolygonPointsWithClosure(GeoCoordinate[] coordinates)
         {
-            double calc = ((P1.Longitude - P0.Longitude) * (P2.Latitude - P0.Latitude)
-                    - (P2.Longitude - P0.Longitude) * (P1.Latitude - P0.Latitude));
-            if (calc > 0)
-                return 1;
-            else if (calc < 0)
-                return -1;
-            else
-                return 0;
+            // _points should remain immutable, thus creation of a closed point set (starting point repeated)
+            return new List<GeoCoordinate>(coordinates)
+            {
+                new GeoCoordinate(coordinates[0].Latitude, coordinates[0].Longitude)
+            }.ToArray();
+        }
+
+        private static int AscendingIntersection(GeoCoordinate location, Edge edge)
+        {
+            return Wind(location, edge, Position.Left);
+        }
+
+        private static int DescendingIntersection(GeoCoordinate location, Edge edge)
+        {
+            return Wind(location, edge, Position.Right);
+        }
+
+        private static int Wind(GeoCoordinate location, Edge edge, Position position)
+        {
+            if (edge.RelativePositionOf(location) != position) { return 0; }
+
+            return 1;
+        }
+
+        private class Edge
+        {
+            private readonly GeoCoordinate _startPoint;
+            private readonly GeoCoordinate _endPoint;
+
+            public Edge(GeoCoordinate startPoint, GeoCoordinate endPoint)
+            {
+                _startPoint = startPoint;
+                _endPoint = endPoint;
+            }
+
+            public Position RelativePositionOf(GeoCoordinate location)
+            {
+                double positionCalculation =
+                    (_endPoint.Longitude - _startPoint.Longitude) * (location.Latitude - _startPoint.Latitude) -
+                    (location.Longitude - _startPoint.Longitude) * (_endPoint.Latitude - _startPoint.Latitude);
+
+                if (positionCalculation > 0) { return Position.Left; }
+
+                if (positionCalculation < 0) { return Position.Right; }
+
+                return Position.Center;
+            }
+        }
+
+        private enum Position
+        {
+            Left,
+            Right,
+            Center
         }
     }
 }

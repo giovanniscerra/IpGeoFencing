@@ -12,7 +12,7 @@ namespace IPGeoFencing.Engine.Builders
         private readonly IIP2LocationProvider _ip2LocationProvider;
         private readonly IGeographicAreasProvider _geographicAreaProvider;
         private readonly List<GeoFencingRule> _geoFencingRules = new List<GeoFencingRule>();
-        private readonly List<Action<IPAddress>> _defaultActions = new List<Action<IPAddress>>();
+        private readonly List<Action<IPAddress, LocationModel>> _defaultActions = new List<Action<IPAddress, LocationModel>>();
 
         public RulesBuilder(IIP2LocationProvider ip2LocationProvider, IGeographicAreasProvider geographicAreaProvider)
         {
@@ -53,7 +53,7 @@ namespace IPGeoFencing.Engine.Builders
             return this;
         }
 
-        public RulesBuilder AddDefaultAction(Action<IPAddress> defaultAction)
+        public RulesBuilder AddDefaultAction(Action<IPAddress, LocationModel> defaultAction)
         {
             if (defaultAction is null)
                 throw new ArgumentNullException($"{nameof(RulesBuilder)}->AddDefaultAction: {nameof(defaultAction)} parameter cannot be null");

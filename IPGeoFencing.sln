@@ -18,8 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{D21D20E3-B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{35E480A9-FD72-4C9B-886E-254CBF0ED210}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPGeoFencing.IntegrationTests", "Tests\IPGeoFencing.IntegrationTests\IPGeoFencing.IntegrationTests.csproj", "{0FEF719F-EE5F-428E-889C-00FE5EA57211}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPGeoFencing.UnitTests", "Tests\IPGeoFencing.UnitTests\IPGeoFencing.UnitTests.csproj", "{8399F108-29EB-4D34-AACC-074E993606EE}"
 EndProject
 Global
@@ -36,10 +34,6 @@ Global
 		{943BC7AB-81FC-45CA-98F7-5D88E98F6D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{943BC7AB-81FC-45CA-98F7-5D88E98F6D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{943BC7AB-81FC-45CA-98F7-5D88E98F6D0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0FEF719F-EE5F-428E-889C-00FE5EA57211}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0FEF719F-EE5F-428E-889C-00FE5EA57211}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0FEF719F-EE5F-428E-889C-00FE5EA57211}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0FEF719F-EE5F-428E-889C-00FE5EA57211}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8399F108-29EB-4D34-AACC-074E993606EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8399F108-29EB-4D34-AACC-074E993606EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8399F108-29EB-4D34-AACC-074E993606EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,7 +43,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{0FEF719F-EE5F-428E-889C-00FE5EA57211} = {35E480A9-FD72-4C9B-886E-254CBF0ED210}
 		{8399F108-29EB-4D34-AACC-074E993606EE} = {35E480A9-FD72-4C9B-886E-254CBF0ED210}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

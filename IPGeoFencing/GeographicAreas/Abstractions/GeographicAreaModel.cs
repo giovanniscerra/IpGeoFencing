@@ -20,6 +20,11 @@ namespace IPGeoFencing.GeographicAreas.Abstractions
 
         public abstract bool Contains(GeoCoordinate point);
 
+        public virtual bool Contains(double latitude, double longitude)
+        {
+            return Contains(new GeoCoordinate(latitude, longitude));
+        }
+
         public static GeographicAreaModel FromGeoJSON(Feature feature)
         {
             if (feature is null)
