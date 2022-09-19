@@ -24,6 +24,13 @@ These are the typical scenarios in which web applications can use the engine wit
 
 ## Anatomy of a geofenging rule
 
+```csharp
+predicate: (areas, ip, location) => { return areas.Any(A => A.Name == "New York"); }
+```
+```csharp
+action: (areas, ip, location) => { Console.WriteLine($"The IP Address: {ip} is in New York State!"); })
+```
+
 
 ## Configuring the geofencing engine
 ```csharp
