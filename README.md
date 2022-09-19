@@ -97,7 +97,7 @@ public static AreasBuilder
 }
 ```
 
-### Plugging in your own service implementations in the engine builder
+### Plugging in your own service implementations
 The engine builder already allows developers to plug in their own service implementations:
 ```csharp
         IIP2LocationProvider myIP2LocationProvider = new myOwnIP2LocationProviderImplementation();
