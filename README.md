@@ -23,14 +23,18 @@ These are the typical scenarios in which web applications can use the engine wit
 - Finding the availability of products or service nearby the ip location
 
 ## Anatomy of a geofenging rule
+A rule is constructed from 3 elements: 
 
+- rule name: short description for the rule
+
+- predicate: a boolean function that determines if the rule should be applied, The function will receive as input the list of geographic areas that contain the IP address location (normally only one area if the areas do not overlap), plus the IP address and its location info.
 ```csharp
 predicate: (areas, ip, location) => { return areas.Any(A => A.Name == "New York"); }
 ```
+- action: a routine that will be executed only if the predicate is evaluated as true. Same inputs as the predicate
 ```csharp
 action: (areas, ip, location) => { Console.WriteLine($"The IP Address: {ip} is in New York State!"); })
 ```
-
 
 ## Configuring the geofencing engine
 ```csharp
