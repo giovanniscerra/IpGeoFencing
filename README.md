@@ -1,11 +1,11 @@
 # IpGeoFencing
-A simple and easily extensible IP geo-fencing engine
+A simple and easily extensible IP geofencing engine
 
 ## Overview
-Geo-fencing is the use of virtual geographic perimeters to determine the behavior of an application.
-Provided a specific coordinate (latitude and longitude), a geo-fencing engine can determine to which virtal geographic area or areas the location belongs, and consequentially take action.
+Geofencing is the use of virtual geographic perimeters to determine the behavior of an application.
+Provided a specific coordinate (latitude and longitude), a geofencing engine can determine to which virtal geographic area or areas the location belongs, and consequentially take action.
 
-The IP geo-fencing engine in this project run based on specific IP addresses.
+The IP geofencing engine in this project run based on specific IP addresses.
 The engine would first translate the IP address into a geographic location, using the free CSV database provided by IP2Location
 [CSV database](https://lite.ip2location.com/database/db11-ip-country-region-city-latitude-longitude-zipcode-timezone "[https://geojson.org/](https://lite.ip2location.com/database/db11-ip-country-region-city-latitude-longitude-zipcode-timezone)") (included in the project).
 
@@ -22,11 +22,14 @@ These are the typical scenarios in which web applications can use the engine wit
 - Localizing content
 - Finding the availability of products or service nearby the ip location
 
-## Configuring the geo-fencing engine
+## Anatomy of a geofenging rule
+
+
+## Configuring the geofencing engine
 ```csharp
 var engine = new IPGeoFencingEngineBuilder()
-	.AddIP2LocationFromCSVFile(@"\\geo-fencing\data\IP2LOCATION-LITE-DB11.CSV")
-	.AddGeographicAreasFromGeoJSONFile(@"\\geo-fencing\data\demo.geojson")
+	.AddIP2LocationFromCSVFile(@"\\geofencing\data\IP2LOCATION-LITE-DB11.CSV")
+	.AddGeographicAreasFromGeoJSONFile(@"\\geofencing\data\demo.geojson")
 	.AddRule("New York", 
 		predicate: (areas, ip, location) => { return areas.Any(A => A.Name == "New York"); },	
 		action: (areas, ip, location) => { Console.WriteLine($"The IP Address: {ip} is in New York State!"); })
